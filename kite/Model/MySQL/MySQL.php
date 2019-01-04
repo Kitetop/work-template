@@ -39,6 +39,7 @@ final class MySQL
         try {
             $this->table = $table;
             $this->pdo = new \PDO($this->dsn, $this->user, $this->password);
+            $this->pdo->query('set names utf8');
         } catch (\PDOException $e) {
             throw new \Exception($e->getMessage(), 500);
         }
@@ -48,6 +49,13 @@ final class MySQL
     {
         $this->bindValues = [];
         $this->query = 'select * from ' . $this->table;
+        return $this;
+    }
+
+    public function count()
+    {
+        $this->bindValues = [];
+        $this->query = 'select count(*) as total from ' . $this->table;
         return $this;
     }
 
@@ -88,6 +96,7 @@ final class MySQL
         if (!$exec->execute($this->bindValues)) {
             throw new \Exception('SQL operation error :' . $exec->errorInfo()[2], 500);
         }
+        $this->bindValues = [];
         return $exec;
     }
 

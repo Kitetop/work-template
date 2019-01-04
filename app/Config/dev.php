@@ -8,7 +8,7 @@
 namespace App;
 
 $config = [
-    'env' => 'prod', //识别当前部署环境,需在dev|test中覆写
+    'env' => 'dev', //识别当前部署环境,需在dev|test中覆写
     'debug' => false,
     'root' => realpath(__DIR__ . '/../../')
 ];
@@ -23,7 +23,7 @@ $config['action'] = [
     'namespace' => '\\' . __NAMESPACE__ . '\\Action' //action的子命名空间
 ];
 if (PHP_SAPI != 'cli') {
-    $config['rootUrl'] = "http://10.0.20.198:8090";
+    $config['rootUrl'] = "http://127.0.0.1:8090";
     $config['realUrl'] = $config['rootUrl'] . $config['action']['base'];
     $config['assetUrl'] = $config['rootUrl'] . '/assets';
 } else {
@@ -37,6 +37,12 @@ $config['logger'] = [
     'write' => $config['root'] . '/runtime/logs/default_error.log',
     'level' => 7
 ];
+
+/**
+ * 文件上传路径
+ */
+$config['upload'] = __DIR__ . '/../../upload';
+
 /**
  * 数据库配置信息
  */
@@ -49,9 +55,9 @@ $config['MongoDB'] = 'mongodb://127.0.0.1:27017?dbname=news';
 #    MYSQL    #
 ###############
 $config['MySQL'] = [
-    'dsn' => 'mysql:dbname=database;host=127.0.0.1',
+    'dsn' => 'mysql:dbname=database;host=localhost:3306',
     'user' => 'root',
-    'password' => '',
+    'password' => '1234',
 ];
 
 return $config;

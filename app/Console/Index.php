@@ -8,7 +8,6 @@
 namespace App\Console;
 
 use Kite\Console\AbstractConsole;
-use Kite\Cycle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

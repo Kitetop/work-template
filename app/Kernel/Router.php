@@ -22,7 +22,7 @@ class Router extends BaseRouter
      */
     public function __construct($config)
     {
-        parent::__construct($this->routers(),$config);
+        parent::__construct($this->routers(), $config);
     }
 
     /**
@@ -32,9 +32,25 @@ class Router extends BaseRouter
     {
         $routers = [
             ['path' => '/news', 'action' => 'Index', 'method' => 'POST'],
-            ['path' => '/news/user/:id', 'action' => 'Index', 'method' => 'GET'],
-            ['path' => '/news/:name', 'action' => 'Index', 'method' => 'GET'],
-            ['path' => '/news/user/:username/:password', 'action' => 'Index', 'method' => 'GET'],
+            //用户模块
+            ['path' => '/user/login', 'action' => 'User\Login', 'method' => 'GET'],
+            ['path' => '/user/register', 'action' => 'User\Register', 'method' => 'POST'],
+            ['path' => '/user/active', 'action' => 'User\ActiveList', 'method' => 'GET'],
+            ['path' => '/user/upload', 'action' => 'User\UploadArticle', 'method' => 'POST'],
+            ['path' => '/user/article', 'action' => 'User\ArticleList', 'method' => 'GET'],
+            ['path' => '/user/invite', 'action' => 'User\ShowInvite', 'method' => 'GET'],
+            ['path' => '/user/react', 'action' => 'User\ReactInvite', 'method' => 'GET'],
+            ['path' => '/user/grade', 'action' => 'User\UploadGrade', 'method' => 'POST'],
+            ['path' => '/user/task' , 'action' => 'User\CheckTask', 'method' => 'GET'],
+            ['path' => '/user/mygrade', 'action' => 'User\GetGrade', 'method' => 'GET'],
+            ['path' => '/spider', 'action' => 'Spider', 'method' => 'GET'],
+
+            //admin模块
+            ['path' => '/admin/invite', 'action' => 'Admin\InviteCheck', 'method' => 'POST'],
+            ['path' => '/admin/refuse', 'action' => 'Admin\InviteRefuse', 'method' => 'GET'],
+            ['path' => '/admin/distribute', 'action' => 'Admin\Distribute', 'method' => 'GET'],
+            ['path' => '/admin/recommend', 'action' => 'Admin\Recommend', 'method' => 'POST'],
+            ['path' => '/admin/active', 'action' => 'Admin\AddActive', 'method' => 'POST'],
         ];
         return $routers;
     }

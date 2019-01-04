@@ -44,8 +44,8 @@ Abstract class AbstractModel
 
     public function __get($name)
     {
-        if (!isset($this->rows[$name])) {
-            throw new \Exception('this value not exist in your table', 500);
+        if (!array_key_exists($name, $this->rows)) {
+            throw new \Exception('this value ' . $name .' not exist in your table', 500);
         }
         return $this->rows[$name];
     }
@@ -81,7 +81,7 @@ Abstract class AbstractModel
         $this->table = $this->table();
         $this->model = $this->connect($this->config);
         if (isset($where)) {
-            $this->rows = $this->select()->where($where)->execute()->fetch(PDO::FETCH_ASSOC);
+            $this->rows = $this->find()->where($where)->execute()->fetch(PDO::FETCH_ASSOC);
         }
     }
 
@@ -152,6 +152,11 @@ Abstract class AbstractModel
         } else {
             $this->model->update($this->update)->where([$this->primary => $this->rows[$this->primary]])->execute();
         }
+    }
+
+    public function count($where = [])
+    {
+       return $this->model->count()->where($where)->execute()->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
